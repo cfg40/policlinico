@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Médica - Servicios</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4CAF50',secondary:'#E7F3E8'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1f2937;
+}
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
+</head>
+<body class="bg-white min-h-screen">
+<!-- Navegación -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="#" class="text-2xl font-['Pacifico'] text-primary">
+      <img src="/logo.jpg" alt="Logo" class="h-10">
+    </a>
+    <nav class="hidden md:flex space-x-8">
+      <a href="#" class="text-gray-700 hover:text-primary font-medium">Inicio</a>
+      <a href="#servicios-medicos" class="hover:text-primary font-medium hover:text-primary font-medium">Servicios</a>
+      <a href="#especialidades-medicas" class="text-gray-700 hover:text-primary font-medium">Especialistas</a>
+      <a href="laboratorio.html" class="text-gray-700 hover:text-primary font-medium">Laboratorio</a>
+      <a href="#contacto" class="text-gray-700 hover:text-primary font-medium">Contacto</a>
+    </nav>
+    <div class="flex items-center space-x-4">
+      <!-- <button class="hidden md:block text-gray-700 hover:text-primary">
+        <div class="w-10 h-10 flex items-center justify-center">
+          <i class="ri-user-line ri-lg"></i>
+        </div>
+      </button> -->
+      <button class="bg-primary text-white px-5 py-2 !rounded-button whitespace-nowrap font-medium hover:bg-opacity-90 transition-all">
+        Reservar Cita
+      </button>
+      <button class="md:hidden text-gray-700">
+        <div class="w-10 h-10 flex items-center justify-center">
+          <i class="ri-menu-line ri-lg"></i>
+        </div>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Banner Principal -->
+<section class="relative bg-gradient-to-r from-secondary to-white py-16 overflow-hidden">
+  <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+    <div class="w-full md:w-1/2 mb-10 md:mb-0">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">Servicios Médicos Especializados</h1>
+      <p class="text-lg text-gray-600 mb-6">Ofrecemos atención médica integral con profesionales altamente calificados y tecnología de vanguardia para cuidar de su salud.</p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-opacity-90 transition-all">
+          Solicitar Información
+        </button>
+        <button class="border border-primary text-primary px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-secondary transition-all">
+          Ver Especialidades
+        </button>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 relative">
+      <img src="https://readdy.ai/api/search-image?query=modern%20medical%20clinic%20interior%20with%20reception%20desk%2C%20clean%20environment%2C%20medical%20staff%2C%20patients%20waiting%20area%2C%20bright%20and%20professional%20healthcare%20setting%2C%20soft%20lighting&width=600&height=400&seq=1&orientation=landscape" alt="Clínica Médica" class="rounded-lg shadow-lg object-cover object-top w-full">
+    </div>
+  </div>
+</section>
+
+<!-- Sección de Video -->
+<section class="py-16 bg-secondary bg-opacity-10">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-4">Conozca Nuestra Clínica</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Descubra nuestras instalaciones y conozca a nuestro equipo médico en este recorrido virtual por nuestra clínica.</p>
+    </div>
+    
+    <div class="max-w-4xl mx-auto rounded-lg shadow-lg overflow-hidden">
+      <div class="video-container bg-white p-2 rounded-lg">
+        <div class="fb-video w-full h-full rounded overflow-hidden" data-width="auto" data-show-text="false">
+          <div class="bg-gray-100 w-full h-full flex items-center justify-center rounded-lg relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-20 h-20 flex items-center justify-center bg-primary bg-opacity-90 rounded-full text-white cursor-pointer hover:bg-opacity-100 transition-all">
+                <i class="ri-play-fill ri-2x"></i>
+              </div>
+            </div>
+            <img src="https://readdy.ai/api/search-image?query=modern%20medical%20clinic%20reception%20area%20with%20staff%20and%20patients%2C%20bright%20clean%20environment%2C%20professional%20healthcare%20setting&width=1280&height=720&seq=2&orientation=landscape" alt="Video de la clínica" class="w-full h-full object-cover object-top rounded-lg opacity-80">
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-6 flex justify-between items-center">
+        <div>
+          <p class="font-medium">Instalaciones y servicios de nuestra clínica</p>
+          <p class="text-gray-500 text-sm">2.5K visualizaciones</p>
+        </div>
+        <a href="#" class="flex items-center text-primary hover:underline">
+          <div class="w-5 h-5 flex items-center justify-center mr-1">
+            <i class="ri-facebook-fill"></i>
+          </div>
+          Síguenos en Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Servicios Principales -->
+<section id="servicios-medicos" class="py-16">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-4">Nuestros Servicios Médicos</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Ofrecemos una amplia gama de servicios médicos para atender todas sus necesidades de salud con la más alta calidad y profesionalismo.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Servicio 1 -->
+      <div class="service-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=doctor%20consulting%20with%20patient%20in%20modern%20medical%20office%2C%20professional%20healthcare%20consultation%2C%20bright%20clean%20medical%20environment&width=400&height=250&seq=3&orientation=landscape" alt="Consultas Médicas" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary rounded-full mb-4">
+            <i class="ri-stethoscope-line text-primary ri-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Consultas Médicas</h3>
+          <p class="text-gray-600 mb-4">Atención médica personalizada con especialistas en diversas áreas para diagnóstico y tratamiento de enfermedades.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-primary font-bold">Desde €60</span>
+            <button class="text-primary hover:underline flex items-center">
+              Reservar
+              <div class="w-5 h-5 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-line"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Servicio 2 -->
+      <div class="service-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%20laboratory%20with%20technicians%20working%20with%20medical%20equipment%2C%20clinical%20testing%2C%20clean%20professional%20environment&width=400&height=250&seq=4&orientation=landscape" alt="Laboratorio Clínico" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary rounded-full mb-4">
+            <i class="ri-test-tube-line text-primary ri-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Laboratorio Clínico</h3>
+          <p class="text-gray-600 mb-4">Análisis clínicos con tecnología avanzada para diagnósticos precisos y resultados rápidos y confiables.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-primary font-bold">Desde €35</span>
+            <a href="https://readdy.ai/home/f6593a36-fbac-46b4-81f6-fd3585d29849/34a6d5e8-d793-42ad-9977-8a2fd419d113" data-readdy="true" class="text-primary hover:underline flex items-center">
+              Ver Exámenes
+              <div class="w-5 h-5 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-line"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Servicio 3 -->
+      <div class="service-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%20medical%20imaging%20room%20with%20MRI%20or%20CT%20scan%20equipment%2C%20healthcare%20technology%2C%20professional%20medical%20environment&width=400&height=250&seq=5&orientation=landscape" alt="Imagenología" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary rounded-full mb-4">
+            <i class="ri-scan-2-line text-primary ri-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Imagenología</h3>
+          <p class="text-gray-600 mb-4">Estudios de imagen con equipos de última generación: radiografías, ecografías, tomografías y resonancias.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-primary font-bold">Desde €120</span>
+            <button class="text-primary hover:underline flex items-center">
+              Reservar
+              <div class="w-5 h-5 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-line"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Servicio 4 -->
+      <div class="service-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=emergency%20room%20in%20hospital%20with%20medical%20staff%20attending%20patients%2C%20urgent%20care%2C%20professional%20healthcare%20environment&width=400&height=250&seq=6&orientation=landscape" alt="Urgencias" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary rounded-full mb-4">
+            <i class="ri-first-aid-kit-line text-primary ri-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Urgencias</h3>
+          <p class="text-gray-600 mb-4">Atención inmediata para casos que requieren intervención médica urgente, disponible las 24 horas del día.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-primary font-bold">Desde €90</span>
+            <button class="text-primary hover:underline flex items-center">
+              Más Información
+              <div class="w-5 h-5 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-line"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Servicio 5 -->
+      <div class="service-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=doctor%20performing%20preventive%20health%20checkup%2C%20medical%20examination%2C%20health%20screening%2C%20professional%20healthcare%20setting&width=400&height=250&seq=7&orientation=landscape" alt="Chequeos Preventivos" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary rounded-full mb-4">
+            <i class="ri-heart-pulse-line text-primary ri-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Chequeos Preventivos</h3>
+          <p class="text-gray-600 mb-4">Evaluaciones médicas completas para prevenir enfermedades y mantener un óptimo estado de salud.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-primary font-bold">Desde €180</span>
+            <button class="text-primary hover:underline flex items-center">
+              Reservar
+              <div class="w-5 h-5 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-line"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Servicio 6 -->
+      <div class="service-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=doctor%20with%20patient%20discussing%20rehabilitation%20therapy%2C%20physical%20therapy%20room%2C%20healthcare%20recovery%2C%20professional%20medical%20environment&width=400&height=250&seq=8&orientation=landscape" alt="Rehabilitación" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary rounded-full mb-4">
+            <i class="ri-mental-health-line text-primary ri-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Rehabilitación</h3>
+          <p class="text-gray-600 mb-4">Terapias físicas y de rehabilitación para recuperación de lesiones y mejora de la calidad de vida.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-primary font-bold">Desde €75</span>
+            <button class="text-primary hover:underline flex items-center">
+              Reservar
+              <div class="w-5 h-5 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-line"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Especialidades Médicas -->
+<section id= "especialidades-medicas" class="py-16 bg-secondary bg-opacity-10">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-4">Especialidades Médicas</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Contamos con un equipo de especialistas altamente calificados en diversas áreas de la medicina para brindarle la mejor atención.</p>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+      <!-- Especialidad 1 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-heart-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Cardiología</h3>
+        <p class="text-gray-600 text-sm">Diagnóstico y tratamiento de enfermedades cardiovasculares.</p>
+      </div>
+      
+      <!-- Especialidad 2 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-psychotherapy-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Neurología</h3>
+        <p class="text-gray-600 text-sm">Tratamiento de trastornos del sistema nervioso.</p>
+      </div>
+      
+      <!-- Especialidad 3 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-women-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Ginecología</h3>
+        <p class="text-gray-600 text-sm">Salud integral de la mujer y sistema reproductor.</p>
+      </div>
+      
+      <!-- Especialidad 4 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-mental-health-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Psicología</h3>
+        <p class="text-gray-600 text-sm">Atención a la salud mental y bienestar emocional.</p>
+      </div>
+      
+      <!-- Especialidad 5 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-surgical-mask-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Cirugía</h3>
+        <p class="text-gray-600 text-sm">Procedimientos quirúrgicos con técnicas avanzadas.</p>
+      </div>
+      
+      <!-- Especialidad 6 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-medicine-bottle-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Oncología</h3>
+        <p class="text-gray-600 text-sm">Diagnóstico y tratamiento del cáncer.</p>
+      </div>
+      
+      <!-- Especialidad 7 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-capsule-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Endocrinología</h3>
+        <p class="text-gray-600 text-sm">Tratamiento de trastornos hormonales y metabólicos.</p>
+      </div>
+      
+      <!-- Especialidad 8 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-lungs-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Neumología</h3>
+        <p class="text-gray-600 text-sm">Diagnóstico y tratamiento de enfermedades respiratorias.</p>
+      </div>
+      
+      <!-- Especialidad 9 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-eye-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Oftalmología</h3>
+        <p class="text-gray-600 text-sm">Cuidado de la salud visual y tratamiento ocular.</p>
+      </div>
+      
+      <!-- Especialidad 10 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-restaurant-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Nutrición</h3>
+        <p class="text-gray-600 text-sm">Asesoramiento nutricional personalizado.</p>
+      </div>
+      
+      <!-- Especialidad 11 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-user-heart-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Pediatría</h3>
+        <p class="text-gray-600 text-sm">Atención médica especializada para niños.</p>
+      </div>
+      
+      <!-- Especialidad 12 -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-all">
+        <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mx-auto mb-4">
+          <i class="ri-medicine-bottle-line text-primary ri-xl"></i>
+        </div>
+        <h3 class="font-bold mb-2">Medicina General</h3>
+        <p class="text-gray-600 text-sm">Atención médica primaria y preventiva.</p>
+      </div>
+    </div>
+    
+    <div class="text-center mt-10">
+      <button class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-opacity-90 transition-all">
+        Ver Todos los Especialistas
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Sección de Contacto -->
+<section id="contacto" class="py-16">
+  <div class="container mx-auto px-4">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <div class="flex flex-col md:flex-row">
+        <div class="w-full md:w-1/2 p-8 md:p-12 bg-primary text-white">
+          <h2 class="text-3xl font-bold mb-6">¿Necesita más información?</h2>
+          <p class="mb-8">Complete el formulario y uno de nuestros asesores se pondrá en contacto con usted para resolver todas sus dudas.</p>
+          
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start">
+              <div class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-full mr-4 flex-shrink-0">
+                <i class="ri-map-pin-line"></i>
+              </div>
+              <div>
+                <h3 class="font-bold mb-1">Dirección</h3>
+                <p>Av. Principal 123, Madrid, España</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-full mr-4 flex-shrink-0">
+                <i class="ri-phone-line"></i>
+              </div>
+              <div>
+                <h3 class="font-bold mb-1">Teléfono</h3>
+                <p>+34 91 123 4567</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-full mr-4 flex-shrink-0">
+                <i class="ri-mail-line"></i>
+              </div>
+              <div>
+                <h3 class="font-bold mb-1">Email</h3>
+                <p>contacto@clinica.es</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-full mr-4 flex-shrink-0">
+                <i class="ri-time-line"></i>
+              </div>
+              <div>
+                <h3 class="font-bold mb-1">Horario</h3>
+                <p>Lun-Vie: 8:00-20:00<br>Sáb: 9:00-14:00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="w-full md:w-1/2 p-8 md:p-12">
+          <h3 class="text-2xl font-bold mb-6">Formulario de Contacto</h3>
+          <form action="https://docs.google.com/forms/d/e/1FAIpQLSfD.../formResponse" method="POST" target="_blank">
+            <div class="mb-4">
+              <label for="name" class="block text-gray-700 mb-2">Nombre completo</label>
+              <input type="text" name="entry.123456789" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50" placeholder="Su nombre">
+            </div>
+            
+            <div class="mb-4">
+              <label for="email" class="block text-gray-700 mb-2">Correo electrónico</label>
+              <input type="email" name="entry.987654321" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50" placeholder="ejemplo@correo.com">
+            </div>
+            
+            <div class="mb-4">
+              <label for="phone" class="block text-gray-700 mb-2">Teléfono</label>
+              <input type="tel" name="entry.111111111" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50" placeholder="+34 XXX XXX XXX">
+            </div>
+            
+            <div class="mb-4">
+              <label for="service" class="block text-gray-700 mb-2">Servicio de interés</label>
+              <select name="entry.222222222" id="service" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 appearance-none pr-8">
+                <option value="">Seleccione un servicio</option>
+                <option value="consulta">Consulta Médica</option>
+                <option value="laboratorio">Laboratorio Clínico</option>
+                <option value="imagen">Imagenología</option>
+                <option value="urgencias">Urgencias</option>
+                <option value="chequeo">Chequeo Preventivo</option>
+              </select>
+              <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                <i class="ri-arrow-down-s-line text-gray-400"></i>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label for="message" class="block text-gray-700 mb-2">Mensaje</label>
+              <textarea name="entry.333333333" id="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50" placeholder="¿Cómo podemos ayudarle?"></textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-opacity-90 transition-all">
+              Enviar Mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-gray-50 border-t border-gray-100">
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <a href="#" class="text-2xl font-['Pacifico'] text-primary mb-4 inline-block">logo</a>
+        <p class="text-gray-600 mb-4">Cuidando de su salud con los mejores profesionales y tecnología de vanguardia.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-primary">
+            <div class="w-10 h-10 flex items-center justify-center">
+              <i class="ri-facebook-fill ri-lg"></i>
+            </div>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-primary">
+            <div class="w-10 h-10 flex items-center justify-center">
+              <i class="ri-twitter-fill ri-lg"></i>
+            </div>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-primary">
+            <div class="w-10 h-10 flex items-center justify-center">
+              <i class="ri-instagram-fill ri-lg"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-bold text-gray-900 mb-4">Servicios</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-600 hover:text-primary">Consultas Médicas</a></li>
+          <li><a href="https://readdy.ai/home/f6593a36-fbac-46b4-81f6-fd3585d29849/34a6d5e8-d793-42ad-9977-8a2fd419d113" data-readdy="true" class="text-gray-600 hover:text-primary">Laboratorio Clínico</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary">Imagenología</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary">Urgencias</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary">Chequeos Preventivos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-gray-900 mb-4">Información</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-600 hover:text-primary">Sobre Nosotros</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary">Especialistas</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary">Horarios de Atención</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary">Preguntas Frecuentes</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary">Blog de Salud</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-gray-900 mb-4">Contacto</h3>
+        <ul class="space-y-2">
+          <li class="flex items-start">
+            <div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+              <i class="ri-map-pin-line"></i>
+            </div>
+            <span class="text-gray-600">Av. Principal 123, Madrid, España</span>
+          </li>
+          <li class="flex items-start">
+            <div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+              <i class="ri-phone-line"></i>
+            </div>
+            <span class="text-gray-600">+34 91 123 4567</span>
+          </li>
+          <li class="flex items-start">
+            <div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+              <i class="ri-mail-line"></i>
+            </div>
+            <span class="text-gray-600">contacto@clinica.es</span>
+          </li>
+          <li class="flex items-start">
+            <div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+              <i class="ri-time-line"></i>
+            </div>
+            <span class="text-gray-600">Lun-Vie: 8:00-20:00<br>Sáb: 9:00-14:00</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Clínica Médica. Todos los derechos reservados.</p>
+      <div class="flex space-x-6">
+        <a href="#" class="text-gray-500 text-sm hover:text-primary">Política de Privacidad</a>
+        <a href="#" class="text-gray-500 text-sm hover:text-primary">Términos de Servicio</a>
+        <a href="#" class="text-gray-500 text-sm hover:text-primary">Mapa del Sitio</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Botón de ayuda flotante -->
+<div class="fixed bottom-6 right-6 z-40">
+  <button class="bg-primary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-opacity-90 transition-all">
+    <div class="w-6 h-6 flex items-center justify-center">
+      <i class="ri-question-line ri-lg"></i>
+    </div>
+  </button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Navegación móvil
+  const menuButton = document.querySelector('.md\\:hidden');
+  if (menuButton) {
+    menuButton.addEventListener('click', function() {
+      alert('Menú móvil - Funcionalidad pendiente de implementar');
+    });
+  }
+  
+  // Reproductor de video
+  const playButton = document.querySelector('.video-container .ri-play-fill').parentElement;
+  if (playButton) {
+    playButton.addEventListener('click', function() {
+      alert('Reproducción de video - Funcionalidad pendiente de implementar. Se requiere URL de Facebook para completar.');
+    });
+  }
+  
+  // Botones de reserva
+  const reserveButtons = document.querySelectorAll('button:not(.md\\:hidden)');
+  reserveButtons.forEach(button => {
+    if (button.textContent.trim().includes('Reservar') || 
+        button.textContent.trim().includes('Solicitar') || 
+        button.textContent.trim().includes('Enviar')) {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('Funcionalidad de reserva/contacto pendiente de implementar');
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>

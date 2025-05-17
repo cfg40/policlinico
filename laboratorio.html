@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Médica - Servicios de Laboratorio</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4A90E2',secondary:'#E7F3E8'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+color: #1f2937;
+}
+.search-input:focus {
+outline: none;
+box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+input[type="checkbox"] {
+appearance: none;
+width: 18px;
+height: 18px;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+position: relative;
+cursor: pointer;
+transition: all 0.2s;
+}
+input[type="checkbox"]:checked {
+background-color: #4A90E2;
+border-color: #4A90E2;
+}
+input[type="checkbox"]:checked::after {
+content: "";
+position: absolute;
+top: 2px;
+left: 5px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.tab-button.active {
+color: #4A90E2;
+border-bottom: 2px solid #4A90E2;
+}
+.exam-row:hover {
+background-color: #f9fafb;
+}
+.exam-row.selected {
+background-color: #E7F3E8;
+}
+.cart-item-remove {
+opacity: 0;
+transition: opacity 0.2s;
+}
+.cart-item:hover .cart-item-remove {
+opacity: 1;
+}
+.total-amount {
+transition: all 0.3s;
+}
+</style>
+</head>
+<body class="bg-white min-h-screen">
+<!-- Navegación -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+<a href="#" class="text-2xl font-['Pacifico'] text-primary">logo</a>
+<nav class="hidden md:flex space-x-8">
+<a href="https://readdy.ai/home/f6593a36-fbac-46b4-81f6-fd3585d29849/49877635-1fd7-4b8b-be9b-5368fbb5b684" data-readdy="true" class="text-gray-700 hover:text-primary font-medium">Inicio</a>
+<a href="https://readdy.ai/home/f6593a36-fbac-46b4-81f6-fd3585d29849/c9594c25-fa72-4810-b4ee-ddf9077af1aa" data-readdy="true" class="text-gray-700 hover:text-primary font-medium">Servicios</a>
+<a href="#" class="text-gray-700 hover:text-primary font-medium">Especialistas</a>
+<a href="#" class="text-primary font-medium">Laboratorio</a>
+<a href="#" class="text-gray-700 hover:text-primary font-medium">Contacto</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button class="hidden md:block text-gray-700 hover:text-primary">
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-user-line ri-lg"></i>
+</div>
+</button>
+<button class="bg-primary text-white px-5 py-2 !rounded-button whitespace-nowrap font-medium hover:bg-opacity-90 transition-all">
+Reservar Cita
+</button>
+<button class="md:hidden text-gray-700">
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-menu-line ri-lg"></i>
+</div>
+</button>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
+<!-- Sección principal de laboratorio -->
+<div class="w-full md:w-2/3">
+<div class="mb-8">
+<h1 class="text-3xl font-bold mb-2">Servicios de Laboratorio</h1>
+<p class="text-gray-600 mb-6">Ofrecemos una amplia gama de análisis clínicos con resultados precisos y en el menor tiempo posible.</p>
+<!-- Barra de búsqueda -->
+<div class="relative mb-6">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<input type="text" id="search-input" class="search-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full pl-10 p-3" placeholder="Buscar exámenes...">
+</div>
+<!-- Categorías / Tabs -->
+<div class="border-b border-gray-200 mb-6">
+<div class="flex overflow-x-auto space-x-8 pb-2">
+<button class="tab-button active whitespace-nowrap pb-2 font-medium">Todos</button>
+<button class="tab-button whitespace-nowrap pb-2 font-medium text-gray-600">Rutina</button>
+<button class="tab-button whitespace-nowrap pb-2 font-medium text-gray-600">Especializados</button>
+<button class="tab-button whitespace-nowrap pb-2 font-medium text-gray-600">Perfiles</button>
+<button class="tab-button whitespace-nowrap pb-2 font-medium text-gray-600">Hormonales</button>
+<button class="tab-button whitespace-nowrap pb-2 font-medium text-gray-600">Genéticos</button>
+</div>
+</div>
+<!-- Lista de exámenes -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="min-w-full divide-y divide-gray-200">
+<thead class="bg-gray-50">
+<tr>
+<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+<input type="checkbox" id="select-all" class="mr-2">
+</th>
+<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+Código
+</th>
+<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+Nombre del examen
+</th>
+<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+Precio
+</th>
+<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+Info
+</th>
+</tr>
+</thead>
+<tbody class="bg-white divide-y divide-gray-200">
+<tr class="exam-row" data-id="1" data-price="35.00" data-name="Hemograma Completo">
+<td class="px-6 py-4 whitespace-nowrap">
+<input type="checkbox" class="exam-checkbox">
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+LAB001
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+Hemograma Completo
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">
+€35.00
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm">
+<button class="info-button text-gray-400 hover:text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-information-line"></i>
+</div>
+</button>
+</td>
+</tr>
+<tr class="exam-row" data-id="2" data-price="42.50" data-name="Perfil Lipídico">
+<td class="px-6 py-4 whitespace-nowrap">
+<input type="checkbox" class="exam-checkbox">
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+LAB002
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+Perfil Lipídico
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">
+€42.50
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm">
+<button class="info-button text-gray-400 hover:text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-information-line"></i>
+</div>
+</button>
+</td>
+</tr>
+<tr class="exam-row" data-id="3" data-price="28.75" data-name="Glucosa en Ayunas">
+<td class="px-6 py-4 whitespace-nowrap">
+<input type="checkbox" class="exam-checkbox">
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+LAB003
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+Glucosa en Ayunas
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">
+€28.75
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm">
+<button class="info-button text-gray-400 hover:text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-information-line"></i>
+</div>
+</button>
+</td>
+</tr>
+<tr class="exam-row" data-id="4" data-price="65.00" data-name="Perfil Tiroideo">
+<td class="px-6 py-4 whitespace-nowrap">
+<input type="checkbox" class="exam-checkbox">
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+LAB004
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+Perfil Tiroideo
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">
+€65.00
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm">
+<button class="info-button text-gray-400 hover:text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-information-line"></i>
+</div>
+</button>
+</td>
+</tr>
+<tr class="exam-row" data-id="5" data-price="52.25" data-name="Función Hepática">
+<td class="px-6 py-4 whitespace-nowrap">
+<input type="checkbox" class="exam-checkbox">
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+LAB005
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+Función Hepática
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">
+€52.25
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm">
+<button class="info-button text-gray-400 hover:text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-information-line"></i>
+</div>
+</button>
+</td>
+</tr>
+<tr class="exam-row" data-id="6" data-price="48.00" data-name="Función Renal">
+<td class="px-6 py-4 whitespace-nowrap">
+<input type="checkbox" class="exam-checkbox">
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+LAB006
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+Función Renal
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">
+€48.00
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm">
+<button class="info-button text-gray-400 hover:text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-information-line"></i>
+</div>
+</button>
+</td>
+</tr>
+<tr class="exam-row" data-id="7" data-price="85.50" data-name="Vitamina D">
+<td class="px-6 py-4 whitespace-nowrap">
+<input type="checkbox" class="exam-checkbox">
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+LAB007
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+Vitamina D
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">
+€85.50
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm">
+<button class="info-button text-gray-400 hover:text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-information-line"></i>
+</div>
+</button>
+</td>
+</tr>
+<tr class="exam-row" data-id="8" data-price="120.00" data-name="Prueba de Alergias">
+<td class="px-6 py-4 whitespace-nowrap">
+<input type="checkbox" class="exam-checkbox">
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+LAB008
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+Prueba de Alergias
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">
+€120.00
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm">
+<button class="info-button text-gray-400 hover:text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-information-line"></i>
+</div>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Carrito lateral -->
+<div class="w-full md:w-1/3 bg-white rounded-lg shadow-sm border border-gray-100 h-fit sticky top-24">
+<div class="p-6">
+<h2 class="text-xl font-bold mb-4 flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-primary">
+<i class="ri-shopping-cart-line"></i>
+</div>
+Exámenes Seleccionados
+<span id="selected-count" class="ml-2 bg-gray-100 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded-full">0</span>
+</h2>
+<div id="cart-items" class="space-y-3 mb-6 max-h-80 overflow-y-auto">
+<div class="text-gray-400 text-center py-8">
+No hay exámenes seleccionados
+</div>
+</div>
+<div class="border-t pt-4">
+<div class="flex justify-between items-center mb-2">
+<span class="text-gray-600">Subtotal</span>
+<span id="subtotal" class="font-medium">€0.00</span>
+</div>
+<div class="flex justify-between items-center mb-4">
+<span class="text-gray-600">IVA (21%)</span>
+<span id="tax" class="font-medium">€0.00</span>
+</div>
+<div class="flex justify-between items-center text-lg font-bold">
+<span>Total</span>
+<span id="total" class="text-primary total-amount">€0.00</span>
+</div>
+</div>
+<div class="mt-6">
+<button id="continue-button" class="w-full bg-primary text-white py-3 !rounded-button whitespace-nowrap font-medium hover:bg-opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+Continuar
+</button>
+<div class="flex justify-center mt-4">
+<button id="save-list" class="text-gray-600 text-sm flex items-center hover:text-primary">
+<div class="w-5 h-5 flex items-center justify-center mr-1">
+<i class="ri-save-line"></i>
+</div>
+Guardar lista
+</button>
+<span class="mx-3 text-gray-300">|</span>
+<button id="share-list" class="text-gray-600 text-sm flex items-center hover:text-primary">
+<div class="w-5 h-5 flex items-center justify-center mr-1">
+<i class="ri-share-line"></i>
+</div>
+Compartir
+</button>
+<span class="mx-3 text-gray-300">|</span>
+<button id="download-pdf" class="text-gray-600 text-sm flex items-center hover:text-primary">
+<div class="w-5 h-5 flex items-center justify-center mr-1">
+<i class="ri-file-pdf-line"></i>
+</div>
+PDF
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Modal de información del examen -->
+<div id="exam-info-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+<div class="bg-white rounded-lg max-w-md w-full mx-4 overflow-hidden">
+<div class="flex justify-between items-center p-6 border-b">
+<h3 class="text-xl font-bold" id="modal-exam-name">Hemograma Completo</h3>
+<button id="close-modal" class="text-gray-400 hover:text-gray-500">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+<div class="p-6">
+<div class="mb-4">
+<h4 class="text-sm font-medium text-gray-500 mb-1">Descripción</h4>
+<p class="text-gray-700">Análisis completo de los componentes celulares de la sangre, incluyendo glóbulos rojos, glóbulos blancos y plaquetas.</p>
+</div>
+<div class="mb-4">
+<h4 class="text-sm font-medium text-gray-500 mb-1">Tiempo de entrega</h4>
+<p class="text-gray-700">24 horas</p>
+</div>
+<div class="mb-4">
+<h4 class="text-sm font-medium text-gray-500 mb-1">Requisitos</h4>
+<p class="text-gray-700">Ayuno de 8 horas. No consumir alcohol 24 horas antes.</p>
+</div>
+<div class="mb-6">
+<h4 class="text-sm font-medium text-gray-500 mb-1">Precio</h4>
+<p class="text-primary text-xl font-bold" id="modal-exam-price">€35.00</p>
+</div>
+<button id="modal-add-button" class="w-full bg-primary text-white py-3 !rounded-button whitespace-nowrap font-medium hover:bg-opacity-90 transition-all" data-id="1" data-price="35.00" data-name="Hemograma Completo">
+Añadir a la selección
+</button>
+</div>
+</div>
+</div>
+<!-- Botón de ayuda flotante -->
+<div class="fixed bottom-6 right-6 z-40">
+<button class="bg-primary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-opacity-90 transition-all">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-question-line ri-lg"></i>
+</div>
+</button>
+</div>
+<footer class="bg-gray-50 border-t border-gray-100 mt-12">
+<div class="container mx-auto px-4 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<a href="#" class="text-2xl font-['Pacifico'] text-primary mb-4 inline-block">logo</a>
+<p class="text-gray-600 mb-4">Cuidando de su salud con los mejores profesionales y tecnología de vanguardia.</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-primary">
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-facebook-fill ri-lg"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary">
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-twitter-fill ri-lg"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary">
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-instagram-fill ri-lg"></i>
+</div>
+</a>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-gray-900 mb-4">Servicios</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">Consultas Médicas</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Laboratorio Clínico</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Imagenología</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Urgencias</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Chequeos Preventivos</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-gray-900 mb-4">Información</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">Sobre Nosotros</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Especialistas</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Horarios de Atención</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Preguntas Frecuentes</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Blog de Salud</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-gray-900 mb-4">Contacto</h3>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-map-pin-line"></i>
+</div>
+<span class="text-gray-600">Av. Principal 123, Madrid, España</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-phone-line"></i>
+</div>
+<span class="text-gray-600">+34 91 123 4567</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-mail-line"></i>
+</div>
+<span class="text-gray-600">contacto@clinica.es</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-time-line"></i>
+</div>
+<span class="text-gray-600">Lun-Vie: 8:00-20:00<br>Sáb: 9:00-14:00</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Clínica Médica. Todos los derechos reservados.</p>
+<div class="flex space-x-6">
+<a href="#" class="text-gray-500 text-sm hover:text-primary">Política de Privacidad</a>
+<a href="#" class="text-gray-500 text-sm hover:text-primary">Términos de Servicio</a>
+<a href="#" class="text-gray-500 text-sm hover:text-primary">Mapa del Sitio</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const examRows = document.querySelectorAll('.exam-row');
+const examCheckboxes = document.querySelectorAll('.exam-checkbox');
+const selectAllCheckbox = document.getElementById('select-all');
+const cartItemsContainer = document.getElementById('cart-items');
+const selectedCountElement = document.getElementById('selected-count');
+const subtotalElement = document.getElementById('subtotal');
+const taxElement = document.getElementById('tax');
+const totalElement = document.getElementById('total');
+const continueButton = document.getElementById('continue-button');
+const searchInput = document.getElementById('search-input');
+const infoButtons = document.querySelectorAll('.info-button');
+const examInfoModal = document.getElementById('exam-info-modal');
+const closeModalButton = document.getElementById('close-modal');
+const modalAddButton = document.getElementById('modal-add-button');
+const modalExamName = document.getElementById('modal-exam-name');
+const modalExamPrice = document.getElementById('modal-exam-price');
+const tabButtons = document.querySelectorAll('.tab-button');
+let selectedExams = [];
+// Función para actualizar el carrito
+function updateCart() {
+// Limpiar el contenedor
+cartItemsContainer.innerHTML = '';
+// Actualizar contador
+selectedCountElement.textContent = selectedExams.length;
+// Si no hay exámenes seleccionados
+if (selectedExams.length === 0) {
+cartItemsContainer.innerHTML = `
+<div class="text-gray-400 text-center py-8">
+No hay exámenes seleccionados
+</div>
+`;
+continueButton.disabled = true;
+} else {
+// Agregar los exámenes seleccionados al carrito
+selectedExams.forEach(exam => {
+const cartItem = document.createElement('div');
+cartItem.className = 'cart-item flex justify-between items-start p-3 bg-gray-50 rounded';
+cartItem.innerHTML = `
+<div>
+<p class="font-medium text-gray-900">${exam.name}</p>
+<p class="text-primary text-sm">€${exam.price.toFixed(2)}</p>
+</div>
+<button class="cart-item-remove text-gray-400 hover:text-red-500" data-id="${exam.id}">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-delete-bin-line"></i>
+</div>
+</button>
+`;
+cartItemsContainer.appendChild(cartItem);
+});
+// Habilitar el botón de continuar
+continueButton.disabled = false;
+}
+// Calcular y actualizar totales
+const subtotal = selectedExams.reduce((sum, exam) => sum + exam.price, 0);
+const tax = subtotal * 0.21;
+const total = subtotal + tax;
+subtotalElement.textContent = `€${subtotal.toFixed(2)}`;
+taxElement.textContent = `€${tax.toFixed(2)}`;
+totalElement.textContent = `€${total.toFixed(2)}`;
+// Efecto de actualización
+totalElement.classList.add('scale-110');
+setTimeout(() => {
+totalElement.classList.remove('scale-110');
+}, 300);
+// Actualizar los checkboxes en la tabla
+examCheckboxes.forEach(checkbox => {
+const row = checkbox.closest('.exam-row');
+const examId = parseInt(row.dataset.id);
+checkbox.checked = selectedExams.some(exam => exam.id === examId);
+if (checkbox.checked) {
+row.classList.add('selected');
+} else {
+row.classList.remove('selected');
+}
+});
+// Actualizar el estado del checkbox "seleccionar todos"
+selectAllCheckbox.checked = selectedExams.length > 0 && selectedExams.length === examCheckboxes.length;
+// Agregar event listeners a los botones de eliminar
+document.querySelectorAll('.cart-item-remove').forEach(button => {
+button.addEventListener('click', function() {
+const examId = parseInt(this.dataset.id);
+selectedExams = selectedExams.filter(exam => exam.id !== examId);
+updateCart();
+});
+});
+}
+// Event listener para los checkboxes de exámenes
+examCheckboxes.forEach(checkbox => {
+checkbox.addEventListener('change', function() {
+const row = this.closest('.exam-row');
+const examId = parseInt(row.dataset.id);
+const examName = row.dataset.name;
+const examPrice = parseFloat(row.dataset.price);
+if (this.checked) {
+// Agregar al array si no existe
+if (!selectedExams.some(exam => exam.id === examId)) {
+selectedExams.push({
+id: examId,
+name: examName,
+price: examPrice
+});
+}
+row.classList.add('selected');
+} else {
+// Eliminar del array
+selectedExams = selectedExams.filter(exam => exam.id !== examId);
+row.classList.remove('selected');
+}
+updateCart();
+});
+});
+// Event listener para el checkbox "seleccionar todos"
+selectAllCheckbox.addEventListener('change', function() {
+if (this.checked) {
+// Seleccionar todos los exámenes visibles
+examRows.forEach(row => {
+if (row.style.display !== 'none') {
+const examId = parseInt(row.dataset.id);
+const examName = row.dataset.name;
+const examPrice = parseFloat(row.dataset.price);
+// Agregar al array si no existe
+if (!selectedExams.some(exam => exam.id === examId)) {
+selectedExams.push({
+id: examId,
+name: examName,
+price: examPrice
+});
+}
+// Marcar el checkbox
+const checkbox = row.querySelector('.exam-checkbox');
+checkbox.checked = true;
+row.classList.add('selected');
+}
+});
+} else {
+// Deseleccionar todos
+selectedExams = [];
+examCheckboxes.forEach(checkbox => {
+checkbox.checked = false;
+checkbox.closest('.exam-row').classList.remove('selected');
+});
+}
+updateCart();
+});
+// Event listener para el buscador
+searchInput.addEventListener('input', function() {
+const searchTerm = this.value.toLowerCase().trim();
+examRows.forEach(row => {
+const examName = row.dataset.name.toLowerCase();
+const examCode = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+if (examName.includes(searchTerm) || examCode.includes(searchTerm)) {
+row.style.display = '';
+} else {
+row.style.display = 'none';
+}
+});
+});
+// Event listeners para los botones de información
+infoButtons.forEach(button => {
+button.addEventListener('click', function() {
+const row = this.closest('.exam-row');
+const examId = parseInt(row.dataset.id);
+const examName = row.dataset.name;
+const examPrice = parseFloat(row.dataset.price);
+// Actualizar el modal con la información del examen
+modalExamName.textContent = examName;
+modalExamPrice.textContent = `€${examPrice.toFixed(2)}`;
+modalAddButton.dataset.id = examId;
+modalAddButton.dataset.name = examName;
+modalAddButton.dataset.price = examPrice;
+// Verificar si ya está seleccionado
+const isSelected = selectedExams.some(exam => exam.id === examId);
+if (isSelected) {
+modalAddButton.textContent = 'Eliminar de la selección';
+modalAddButton.classList.remove('bg-primary');
+modalAddButton.classList.add('bg-red-500');
+} else {
+modalAddButton.textContent = 'Añadir a la selección';
+modalAddButton.classList.add('bg-primary');
+modalAddButton.classList.remove('bg-red-500');
+}
+// Mostrar el modal
+examInfoModal.classList.remove('hidden');
+});
+});
+// Cerrar el modal
+closeModalButton.addEventListener('click', function() {
+examInfoModal.classList.add('hidden');
+});
+// Cerrar el modal al hacer clic fuera de él
+examInfoModal.addEventListener('click', function(e) {
+if (e.target === examInfoModal) {
+examInfoModal.classList.add('hidden');
+}
+});
+// Añadir/eliminar desde el modal
+modalAddButton.addEventListener('click', function() {
+const examId = parseInt(this.dataset.id);
+const examName = this.dataset.name;
+const examPrice = parseFloat(this.dataset.price);
+const isSelected = selectedExams.some(exam => exam.id === examId);
+if (isSelected) {
+// Eliminar del array
+selectedExams = selectedExams.filter(exam => exam.id !== examId);
+this.textContent = 'Añadir a la selección';
+this.classList.add('bg-primary');
+this.classList.remove('bg-red-500');
+} else {
+// Agregar al array
+selectedExams.push({
+id: examId,
+name: examName,
+price: examPrice
+});
+this.textContent = 'Eliminar de la selección';
+this.classList.remove('bg-primary');
+this.classList.add('bg-red-500');
+}
+updateCart();
+});
+// Event listeners para los botones de pestañas
+tabButtons.forEach(button => {
+button.addEventListener('click', function() {
+// Remover la clase active de todos los botones
+tabButtons.forEach(btn => btn.classList.remove('active'));
+// Agregar la clase active al botón clickeado
+this.classList.add('active');
+// Filtrar los exámenes según la pestaña seleccionada
+const tabName = this.textContent.trim().toLowerCase();
+if (tabName === 'todos') {
+// Mostrar todos los exámenes
+examRows.forEach(row => {
+row.style.display = '';
+});
+} else {
+// Aquí se implementaría la lógica de filtrado según la categoría
+// Por simplicidad, solo mostramos un comportamiento simulado
+examRows.forEach(row => {
+// Simulación de filtrado (en un caso real, se usarían datos reales)
+const randomShow = Math.random() > 0.5;
+row.style.display = randomShow ? '' : 'none';
+});
+}
+});
+});
+// Botones de acción adicionales (guardar, compartir, PDF)
+document.getElementById('save-list').addEventListener('click', function() {
+if (selectedExams.length === 0) {
+alert('No hay exámenes seleccionados para guardar');
+return;
+}
+alert('Lista guardada correctamente');
+});
+document.getElementById('share-list').addEventListener('click', function() {
+if (selectedExams.length === 0) {
+alert('No hay exámenes seleccionados para compartir');
+return;
+}
+alert('Opción para compartir la lista');
+});
+document.getElementById('download-pdf').addEventListener('click', function() {
+if (selectedExams.length === 0) {
+alert('No hay exámenes seleccionados para descargar');
+return;
+}
+alert('Generando PDF...');
+});
+// Botón continuar
+continueButton.addEventListener('click', function() {
+if (selectedExams.length === 0) {
+alert('Por favor, seleccione al menos un examen para continuar');
+return;
+}
+alert('Procediendo al proceso de reserva con ' + selectedExams.length + ' exámenes seleccionados');
+});
+// Inicializar el carrito
+updateCart();
+});
+</script>
+</body>
+</html>
