@@ -37,12 +37,18 @@ body {
 }
 </style>
 </head>
+
+<!-- Botón flotante para regresar al inicio -->
+<a href="#" class="fixed bottom-6 right-6 z-50 bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-opacity-90 transition-all" title="Volver al inicio">
+  <i class="ri-arrow-up-line ri-xl"></i>
+</a>
+
 <body class="bg-white min-h-screen">
 <!-- Navegación -->
 <header class="bg-white shadow-sm sticky top-0 z-50">
   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
     <a href="#" class="text-2xl font-['Pacifico'] text-primary">
-      <img src="/logo.jpg" alt="Logo" class="h-10">
+      <img src="img/logo.jpg" alt="Logo" class="h-10">
     </a>
     <nav class="hidden md:flex space-x-8">
       <a href="#" class="text-gray-700 hover:text-primary font-medium">Inicio</a>
@@ -86,13 +92,13 @@ body {
     <div class="w-full md:w-1/2 mb-10 md:mb-0">
       <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">Servicios Médicos Especializados</h1>
       <p class="text-lg text-gray-600 mb-6">Ofrecemos atención médica integral con profesionales altamente calificados y tecnología de vanguardia para cuidar de su salud.</p>
-      <div class="flex flex-col sm:flex-row gap-4">
-        <button class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-opacity-90 transition-all">
+      <div class="flex flex-col items-center sm:flex-row gap-4">
+        <a href="https://wa.me/971221917" target="_blank" rel="noopener" class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-opacity-90 transition-all">
           Solicitar Información
-        </button>
-        <button class="border border-primary text-primary px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-secondary transition-all">
-          Ver Especialidades
-        </button>
+        </a>
+<a href="#especialidades-medicas" class="border border-primary text-primary px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-secondary transition-all">
+  Ver Especialidades
+</a>
       </div>
     </div>
     <div class="w-full md:w-1/2 relative">
@@ -469,7 +475,7 @@ body {
         
 
         <div id="formulario-contacto" class="w-full md:w-1/2 p-8 md:p-12">
-          <h3 class="text-2xl font-bold mb-6">Formulario de Contacto</h3>
+          <h3 class="text-2xl font-bold mb-6">Reserva tu cita</h3>
           <form action="https://script.google.com/macros/s/AKfycbynfD2DnhaAQ1Seg8gx2qc13PRODfu9Ij3E2ViB0cfFJ-oTisDpZ2SDSrryf2I8NvuP/exec" method="POST">
             
             <div class="mb-4">
@@ -521,8 +527,10 @@ body {
   <div class="container mx-auto px-4 py-12">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <div>
-        <a href="#" class="text-2xl font-['Pacifico'] text-primary mb-4 inline-block">logo</a>
-        <p class="text-gray-600 mb-4">Cuidando de su salud con los mejores profesionales y tecnología de vanguardia.</p>
+      <a href="img/logo.jpg" class="inline-block mb-4">
+        <img src="img/logo.jpg" alt="Logo" class="h-10">
+      </a>        
+      <p class="text-gray-600 mb-4">Cuidando de su salud con los mejores profesionales y tecnología de vanguardia.</p>
         <div class="flex space-x-4">
           <a href="#" class="text-gray-400 hover:text-primary">
             <div class="w-10 h-10 flex items-center justify-center">
@@ -603,13 +611,13 @@ body {
 </footer>
 
 <!-- Botón de ayuda flotante -->
-<div class="fixed bottom-6 right-6 z-40">
+<!-- <div class="fixed bottom-6 right-6 z-40">
   <button class="bg-primary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-opacity-90 transition-all">
     <div class="w-6 h-6 flex items-center justify-center">
       <i class="ri-question-line ri-lg"></i>
     </div>
   </button>
-</div>
+</div> -->
 
 <script>
 function toggleMobileMenu() {
